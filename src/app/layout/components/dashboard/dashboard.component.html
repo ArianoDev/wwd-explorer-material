@@ -1,0 +1,28 @@
+<app-toolbar (openMenu)="openSidenav()" (toggleSFA)="sfa.toggle()">
+  WWD Explorer
+</app-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav fixedInViewport="true" class="sidenav" [mode]="push" [opened]="showSidenav" [disableClose]="true">
+    <mat-toolbar>
+      Menu <button mat-raised-button (click)="closeSidenav">Close</button>
+    </mat-toolbar>
+    <mat-nav-list>
+      <app-nav-item routerLink="/map" icon="explore" hint="Show Map"> Show Map </app-nav-item>
+      <app-nav-item routerLink="/settings" icon="settings" hint="Open Settings"> Settings </app-nav-item>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav #sfa fixedInViewport="true" class="sidenav" [mode]="push" position="end" [opened]="showSfa$" [disableClose]="true">
+    <mat-toolbar>SFA</mat-toolbar>
+    <mat-nav-list>
+      <app-nav-item routerLink="/map" icon="explore" hint="Show Map"> Show Map </app-nav-item>
+      <app-nav-item routerLink="/settings" icon="settings" hint="Open Settings"> Settings </app-nav-item>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

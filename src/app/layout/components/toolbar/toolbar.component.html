@@ -1,0 +1,7 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="openMenu.emit()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <ng-content></ng-content>
+  <button mat-button (click)="toggleSFA.emit()">Toggle SFA</button>
+</mat-toolbar>
