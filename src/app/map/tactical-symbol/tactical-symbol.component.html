@@ -14,3 +14,10 @@
 
 
 <app-tactical-symbol-detail [symbol]="displayedSymbol"></app-tactical-symbol-detail> -->
+
+<button mat-mini-fab [matMenuTriggerFor]="menu"><mat-icon>apps</mat-icon></button>
+<mat-menu #menu="matMenu">
+    <button mat-menu-item *ngFor="let symbol of symbolIcons" (click)="addSymbol(symbol.id)"> 
+        <app-svg-element [content]="symbol.icon"></app-svg-element>
+    </button>
+</mat-menu>

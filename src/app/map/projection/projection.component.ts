@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { ProjectionService } from '../services/projection.service';
 import { Projection } from '../../models/projection.model';
 
@@ -38,7 +38,7 @@ export class ProjectionComponent implements OnInit {
   updateProjection(projection) {
     if (this.current !== projection) {
       this.current = projection;
-      console.log('Dispatching event: OpenSidenav');
+      console.log('Dispatching event: Projection Loaded');
       this.store.dispatch(new ProjectionActions.ProjectionLoaded({ projection: this.current }));
     }
   }

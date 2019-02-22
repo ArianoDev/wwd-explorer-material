@@ -38,6 +38,10 @@ export class MapComponent implements OnInit, AfterViewInit {
         }
       }
     });
+
+    this.store.pipe(select(fromRoot.getSymbol)).subscribe(symbol => {
+      this.symbolChanged(symbol);
+    });
   }
 
   ngOnInit(): void {

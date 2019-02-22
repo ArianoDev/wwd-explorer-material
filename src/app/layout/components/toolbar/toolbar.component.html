@@ -1,7 +1,23 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button (click)="openMenu.emit()">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <ng-content></ng-content>
-  <button mat-button (click)="toggleSFA.emit()">Toggle SFA</button>
+  <div class="toolbar-elem">
+    <button mat-icon-button (click)="openMenu.emit()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+
+  <div class="toolbar-elem">
+    <ng-content></ng-content>
+  </div>
+
+  <div class="toolbar-elem">
+    <button mat-mini-fab (click)="toggleSFA.emit()">
+      <mat-icon>layers</mat-icon>
+    </button>
+  </div>
+
+  <div class="toolbar-elem"><button mat-button (click)="openDialog()">Open dialog</button></div>
+
+  <div class="toolbar-elem">
+    <app-tactical-symbol></app-tactical-symbol>
+  </div>
 </mat-toolbar>

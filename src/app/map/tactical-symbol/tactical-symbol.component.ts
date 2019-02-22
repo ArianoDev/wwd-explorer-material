@@ -4,6 +4,10 @@ import { Symbol } from 'milsymbol';
 import { TacticalSymbol } from '../../models/tactica-symbol.model';
 import * as WorldWind from '@nasaworldwind/worldwind';
 
+import { Store } from '@ngrx/store';
+import * as SymbolActions from '../actions/symbol.actions';
+import * as fromRoot from '../../reducers/index';
+
 @Component({
   selector: 'app-tactical-symbol',
   templateUrl: './tactical-symbol.component.html',
@@ -14,32 +18,32 @@ export class TacticalSymbolComponent implements OnInit {
   @Output() symbolChanged = new EventEmitter<any>();
 
   symbols = [
-    'SFG*UCDSS-*****',
+    /*'SFG*UCDSS-*****',
     'SNG*UCDSS-*****',
     'SHG*UCDSS-*****',
     'SUG*UCDSV-*****',
     'SFG*UCDSV-*****',
     'SNG*UCDSV-*****',
     'SHG*UCDSV-*****',
-    'SUG*UCDM--*****',
+    'SUG*UCDM--*****',*/
     'SFG*UCDM--*****',
-    'SNG*UCDM--*****',
+    /*'SNG*UCDM--*****',*/
     'SHG*UCDM--*****',
     'SUG*UCDML-*****',
-    'SFG*UCDML-*****',
+    /*'SFG*UCDML-*****',
     'SNG*UCDML-*****',
     'SHG*UCDML-*****',
     'SUG*UCDMLA*****',
     'SFG*UCDMLA*****',
     'SNG*UCDMLA*****',
-    'SHG*UCDMLA*****'
+    'SHG*UCDMLA*****'*/
   ];
   currentSymbol: string;
   symbolIcons = [];
   displayedSymbol;
   storage = new Array();
 
-  constructor(private inputHandlerService: InputHandlerService) {
+  constructor(private inputHandlerService: InputHandlerService, private store: Store<fromRoot.State>) {
   }
 
   ngOnInit() {
@@ -55,7 +59,9 @@ export class TacticalSymbolComponent implements OnInit {
 
     this.inputHandlerService.inputEvent.subscribe(point => {
       console.log('Point catched is: %s - Symbol (%s)', JSON.stringify(point), this.currentSymbol);
-      this.symbolChanged.emit(this.createSymbol(point));
+      console.log('Dispatching event: Add Symbol');
+      this.store.dispatch(new SymbolActions.SymbolCreated({ symbol: this.createSymbol(point) }));
+      // this.symbolChanged.emit(this.createSymbol(point));
     });
 
     this.inputHandlerService.contextEvent.subscribe(elem => this.showContext(elem));
@@ -125,9 +131,12 @@ export class TacticalSymbolComponent implements OnInit {
   /**
    * Invokes the Input Handler Service
    * in order catch the point on map.
+   * @param symbolId The MilSymbol ID
    */
-  addSymbol() {
+  addSymbol(symbolId) {
+    this.currentSymbol = symbolId;
     console.log('Start catching point');
     this.inputHandlerService.startCatchInput();
   }
+
 }

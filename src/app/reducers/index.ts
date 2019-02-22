@@ -27,6 +27,7 @@ export interface State {
     layout: fromLayout.LayoutState;
     router: fromRouter.RouterReducerState;
     projection: fromMap.ProjectionState;
+    symbol: fromMap.SymbolState;
 }
 
 /**
@@ -37,7 +38,8 @@ export interface State {
 export const reducers: ActionReducerMap<State> = {
     layout: fromLayout.reducer,
     router: fromRouter.routerReducer,
-    projection: fromMap.reducer
+    projection: fromMap.projectionReducer,
+    symbol: fromMap.symbolReducer
 };
 
 // console.log all actions
@@ -64,7 +66,9 @@ export const getLayoutState = createFeatureSelector<State, fromLayout.LayoutStat
 /**
  * Map Reducers
  */
-export const getMapState = createFeatureSelector<State, fromMap.ProjectionState>('projection');
+export const getProjectionState = createFeatureSelector<State, fromMap.ProjectionState>('projection');
+export const getSymbolState = createFeatureSelector<State, fromMap.SymbolState>('symbol');
 
 export const getShowSidenav = createSelector(getLayoutState, fromLayout.getShowSidenav);
-export const getProjection = createSelector(getMapState, fromMap.getProjection);
+export const getProjection = createSelector(getProjectionState, fromMap.getProjection);
+export const getSymbol = createSelector(getSymbolState, fromMap.getSymbol);

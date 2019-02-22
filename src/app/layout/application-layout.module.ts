@@ -9,6 +9,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MaterialModule } from '../material/material.module';
 import { NavItemComponent } from './components/sidenav/nav-item.component';
 import { MapModule } from '../map/map.module';
+import { DialogDataExampleDialogComponent } from './components/toolbar/dialog-data-example-dialog.component';
 
 export const COMPONENTS = [
   AppComponent,
@@ -16,6 +17,7 @@ export const COMPONENTS = [
   ToolbarComponent,
   NavItemComponent,
   DashboardComponent,
+  DialogDataExampleDialogComponent
 ];
 
 @NgModule({
@@ -27,5 +29,6 @@ export const COMPONENTS = [
     ],
   declarations: COMPONENTS,
   exports: COMPONENTS,
+  entryComponents: [DialogDataExampleDialogComponent]
 })
 export class ApplicationLayoutModule {}
