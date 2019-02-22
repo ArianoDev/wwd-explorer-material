@@ -2,8 +2,9 @@
   WWD Explorer
 </app-toolbar>
 
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav fixedInViewport="true" class="sidenav" [mode]="push" [opened]="showSidenav" [disableClose]="true">
+<mat-sidenav-container class="sidenav-container" [autosize]="true">
+  <mat-sidenav #sidenav class="sidenav" [fixedInViewport]="true" [mode]="push" [opened]="showSidenav"
+    [disableClose]="true">
     <mat-toolbar>
       Menu <button mat-raised-button (click)="closeSidenav">Close</button>
     </mat-toolbar>
@@ -13,16 +14,35 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <mat-sidenav #sfa fixedInViewport="true" class="sidenav" [mode]="push" position="end" [opened]="showSfa$" [disableClose]="true">
+  <mat-sidenav #sfa class="sfa" [fixedInViewport]="false" [mode]="'side'" position="end" [opened]="true" [disableClose]="true">
     <mat-toolbar>SFA</mat-toolbar>
-    <mat-nav-list>
-      <app-nav-item routerLink="/map" icon="explore" hint="Show Map"> Show Map </app-nav-item>
-      <app-nav-item routerLink="/settings" icon="settings" hint="Open Settings"> Settings </app-nav-item>
-    </mat-nav-list>
+    <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Layers </mat-panel-title>
+            <mat-panel-description></mat-panel-description>
+          </mat-expansion-panel-header>
+          <!-- Accordion item content -->
+          <app-layer></app-layer>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Projections </mat-panel-title>
+            <mat-panel-description></mat-panel-description>
+          </mat-expansion-panel-header>
+          <!-- Accordion item content -->          
+          <app-projection></app-projection>
+        </mat-expansion-panel>
+      </mat-accordion>
   </mat-sidenav>
 
-  <mat-sidenav-content>
+  <mat-sidenav-content class="app-content">
+    <!-- Here the content -->
     <ng-content></ng-content>
+    <!-- Fullscreen Map -->
+    <button mat-mini-fab class="map-fullscreen-btn">
+      <mat-icon aria-label="Go to Fullscreen" (click)="sfa.toggle()">zoom_out_map</mat-icon>
+    </button>
   </mat-sidenav-content>
 
 </mat-sidenav-container>

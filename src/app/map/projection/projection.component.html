@@ -1,0 +1,7 @@
+<mat-form-field>
+  <mat-select placeholder="Choose the projection" (selectionChange)="updateProjection($event.value)">
+    <mat-option *ngFor="let proj of projections" [value]="proj" >
+      {{proj.source.displayName}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

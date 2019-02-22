@@ -8,20 +8,22 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MaterialModule } from '../material/material.module';
 import { NavItemComponent } from './components/sidenav/nav-item.component';
+import { MapModule } from '../map/map.module';
 
 export const COMPONENTS = [
   AppComponent,
   // NotFoundPageComponent,
   ToolbarComponent,
   NavItemComponent,
-  DashboardComponent
+  DashboardComponent,
 ];
 
 @NgModule({
   imports: [
      CommonModule,
      RouterModule,
-     MaterialModule
+     MaterialModule,
+     MapModule
     ],
   declarations: COMPONENTS,
   exports: COMPONENTS,

@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './layout/containers/app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MapComponent } from './map/map.component';
+import { MapModule } from './map/map.module';
 import { SettingsComponent } from './settings/settings.component';
 import { MaterialModule } from './material/material.module';
 import { ApplicationLayoutModule } from './layout/application-layout.module';
@@ -19,13 +19,13 @@ import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
-    MapComponent,
     SettingsComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     LayoutModule,
+    MapModule,
     AppRoutingModule,
     ApplicationLayoutModule,
     MaterialModule,

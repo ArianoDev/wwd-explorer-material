@@ -1,0 +1,16 @@
+<!-- <button type="button" class="btn btn-dark" (click)="addSymbol()"><i class="fas fa-plus"></i></button>
+<div ngbDropdown class="d-inline-block">
+    <button class="btn btn-outline-primary" id="dropdownSymbol" ngbDropdownToggle>Select Symbol</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownSymbol">
+        <button class="dropdown-item" *ngFor="let symbol of symbolIcons" (click)="selectSymbol(symbol.id)">
+            <app-svg-element [content]="symbol.icon"></app-svg-element>
+        </button>
+    </div>
+</div>
+
+<ngb-alert *ngIf="displayedSymbol" [type]="info" [dismissible]="true" (close)="displayedSymbol = null">
+    <strong>ID:</strong>{{displayedSymbol.id}} | <strong>LATITUDE:</strong>{{displayedSymbol.point.latitude}} | <strong>LONGITUDE:</strong>{{displayedSymbol.point.longitude}}
+</ngb-alert>
+
+
+<app-tactical-symbol-detail [symbol]="displayedSymbol"></app-tactical-symbol-detail> -->

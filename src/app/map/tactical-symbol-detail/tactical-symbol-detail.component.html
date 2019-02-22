@@ -1,0 +1,14 @@
+<div *ngIf="symbol" class="symbol-card">
+  <div class="card border-primary mb-3" style="max-width: 18rem;">
+    <button type="button" class="close" aria-label="Close" (click)="symbol = null">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="card-header">Symbol - {{symbol.id}}</div>
+    <div class="card-body text-dark">
+      <p class="card-text">Latitude: {{symbol.point.latitude}}</p>
+      <p class="card-text">Latitude: {{symbol.point.longitude}}</p>
+      <a href="#" class="card-link">Action</a>
+      <a href="#" class="card-link">Another Action</a>
+    </div>
+  </div>
+</div>

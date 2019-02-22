@@ -1,0 +1,5 @@
+<mat-selection-list>
+  <mat-list-option *ngFor="let layer of layers" (click)="onLayerClick(layer.id)" [selected]="layer.enabled">
+    {{layer.source.displayName}}
+  </mat-list-option>
+</mat-selection-list>

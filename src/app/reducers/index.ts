@@ -17,6 +17,7 @@ import { storeFreeze } from 'ngrx-store-freeze';
  */
 
 import * as fromLayout from '../layout/reducers/layout.reducer';
+import * as fromMap from '../map/reducer/map.reducer';
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
@@ -25,6 +26,7 @@ import * as fromLayout from '../layout/reducers/layout.reducer';
 export interface State {
     layout: fromLayout.LayoutState;
     router: fromRouter.RouterReducerState;
+    projection: fromMap.ProjectionState;
 }
 
 /**
@@ -35,6 +37,7 @@ export interface State {
 export const reducers: ActionReducerMap<State> = {
     layout: fromLayout.reducer,
     router: fromRouter.routerReducer,
+    projection: fromMap.reducer
 };
 
 // console.log all actions
@@ -58,4 +61,10 @@ export const metaReducers: MetaReducer<State>[] = !environment.production ? [log
  */
 export const getLayoutState = createFeatureSelector<State, fromLayout.LayoutState>('layout');
 
+/**
+ * Map Reducers
+ */
+export const getMapState = createFeatureSelector<State, fromMap.ProjectionState>('projection');
+
 export const getShowSidenav = createSelector(getLayoutState, fromLayout.getShowSidenav);
+export const getProjection = createSelector(getMapState, fromMap.getProjection);
