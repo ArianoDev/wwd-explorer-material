@@ -8,14 +8,16 @@ export interface ProjectionState {
 }
 
 export interface SymbolState {
-    symbol: TacticalSymbol;
+    loaded: TacticalSymbol;
+    editing: TacticalSymbol;
 }
 
 const initialProjState: ProjectionState = {
     projection: null
 };
 const initialSymbolState: SymbolState = {
-    symbol: null
+    loaded: null,
+    editing: null
 };
 
 export function projectionReducer(state: ProjectionState = initialProjState, action: ProjectionActionsUnion): ProjectionState {
@@ -28,13 +30,16 @@ export function projectionReducer(state: ProjectionState = initialProjState, act
 export function symbolReducer(state: SymbolState = initialSymbolState, action: SymbolActionsUnion): SymbolState {
     switch (action.type) {
         case SymbolActionTypes.SymbolLoaded:
-            return state = { symbol: action.payload.symbol };
+            return state = { loaded: action.payload, editing: state.editing };
+        case SymbolActionTypes.EditingSymbol:
+            return state = { loaded: state.loaded, editing: action.payload };
         default: return state;
     }
 }
 
 export const getProjection = (state: ProjectionState) => state.projection;
-export const getSymbol = (state: SymbolState) => state.symbol;
+export const getSymbolLoaded = (state: SymbolState) => state.loaded;
+export const getSymbolEditing = (state: SymbolState) => state.editing;
 
 
 

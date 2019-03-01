@@ -9,7 +9,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MaterialModule } from '../material/material.module';
 import { NavItemComponent } from './components/sidenav/nav-item.component';
 import { MapModule } from '../map/map.module';
-import { DialogDataExampleDialogComponent } from './components/toolbar/dialog-data-example-dialog.component';
+import { TacticalSymbolDetailComponent } from './components/tactical-symbol-detail/tactical-symbol-detail.component';
+
 
 export const COMPONENTS = [
   AppComponent,
@@ -17,7 +18,7 @@ export const COMPONENTS = [
   ToolbarComponent,
   NavItemComponent,
   DashboardComponent,
-  DialogDataExampleDialogComponent
+  TacticalSymbolDetailComponent
 ];
 
 @NgModule({
@@ -29,6 +30,6 @@ export const COMPONENTS = [
     ],
   declarations: COMPONENTS,
   exports: COMPONENTS,
-  entryComponents: [DialogDataExampleDialogComponent]
+  entryComponents: [TacticalSymbolDetailComponent]
 })
 export class ApplicationLayoutModule {}

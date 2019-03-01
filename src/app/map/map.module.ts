@@ -7,7 +7,6 @@ import { MapComponent } from './map.component';
 import { LayerComponent } from './layer/layer.component';
 import { ProjectionComponent } from './projection/projection.component';
 import { TacticalSymbolComponent } from './tactical-symbol/tactical-symbol.component';
-import { TacticalSymbolDetailComponent } from './tactical-symbol-detail/tactical-symbol-detail.component';
 import { SvgElementComponent } from '../svg-element/svg-element.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -17,8 +16,7 @@ export const COMPONENTS = [
     LayerComponent,
     ProjectionComponent,
     TacticalSymbolComponent,
-    SvgElementComponent,
-    TacticalSymbolDetailComponent
+    SvgElementComponent
 ];
 
 @NgModule({

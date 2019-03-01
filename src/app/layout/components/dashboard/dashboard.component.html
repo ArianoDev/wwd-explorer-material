@@ -14,7 +14,7 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <mat-sidenav #sfa class="sfa" [fixedInViewport]="false" [mode]="'side'" position="end" [opened]="true" [disableClose]="true">
+  <mat-sidenav #sfa class="sfa" [fixedInViewport]="false" [mode]="'side'" position="end" [opened]="false" [disableClose]="true">
     <mat-toolbar>Settings</mat-toolbar>
     <mat-accordion>
         <mat-expansion-panel>
@@ -38,11 +38,7 @@
 
   <mat-sidenav-content class="app-content">
     <!-- Here the content -->
-    <ng-content></ng-content>
-    <!-- Fullscreen Map -->
-    <button mat-mini-fab class="map-fullscreen-btn">
-      <mat-icon aria-label="Go to Fullscreen" (click)="sfa.toggle()">zoom_out_map</mat-icon>
-    </button>
+    <ng-content></ng-content>    
   </mat-sidenav-content>
 
 </mat-sidenav-container>

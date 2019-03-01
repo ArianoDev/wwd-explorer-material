@@ -1,0 +1,17 @@
+<div class="modal-content">  
+  <div mat-dialog-content>
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Symbol - {{symbol.id}}</mat-card-title>
+    </mat-card-header>      
+    <mat-card-content>
+      <p class="card-text">Latitude: {{symbol.position.latitude}}</p>
+      <p class="card-text">Latitude: {{symbol.position.longitude}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>
+      <button mat-button mat-dialog-close (click)="handleClose()">Close</button>
+    </mat-card-actions>    
+  </div>
+</div>

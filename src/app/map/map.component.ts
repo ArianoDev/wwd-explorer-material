@@ -5,6 +5,7 @@ import * as WorldWind from '@nasaworldwind/worldwind';
 import { InputHandlerService } from './services/input-handler.service';
 import { TacticalSymbol } from '../models/tactica-symbol.model';
 import { LayerService } from './services/layer.service';
+import { SymbolService } from './services/symbol.service';
 
 import * as fromRoot from '../reducers/index';
 
@@ -24,7 +25,8 @@ export class MapComponent implements OnInit, AfterViewInit {
   position: string;
   pickedElem = null;
 
-  constructor(private layerService: LayerService, private inputHandlerService: InputHandlerService, private store: Store<fromRoot.State>) {
+  // tslint:disable-next-line:max-line-length
+  constructor(private layerService: LayerService, private inputHandlerService: InputHandlerService, private symbolService: SymbolService, private store: Store<fromRoot.State>) {
     this.roundGlobe = new WorldWind.Globe(new WorldWind.EarthElevationModel());
     this.flatGlobe = new WorldWind.Globe2D();
 
@@ -39,13 +41,18 @@ export class MapComponent implements OnInit, AfterViewInit {
       }
     });
 
-    this.store.pipe(select(fromRoot.getSymbol)).subscribe(symbol => {
+    this.store.pipe(select(fromRoot.getSymbolLoaded)).subscribe(symbol => {
       this.symbolChanged(symbol);
     });
   }
 
   ngOnInit(): void {
     console.log('[AppComponent] => ngOnInit()');
+
+  }
+
+  ngAfterViewInit() {
+    console.log('[AppComponent] => ngAfterViewInit()');
     this.layerService.getLayers()
       .then(layers => {
         layers.forEach(layer => {
@@ -66,10 +73,8 @@ export class MapComponent implements OnInit, AfterViewInit {
       .catch(err => {
         console.log(err);
       });
-  }
 
-  ngAfterViewInit() {
-    console.log('[AppComponent] => ngAfterViewInit()');
+
     // Initialize WorldWind object
     this.wwd = new WorldWind.WorldWindow('scene');
 
@@ -150,13 +155,15 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.wwd.redraw();
   }
 
-  symbolChanged(tacticalSymbol: TacticalSymbol) {
+  symbolChanged(symbol: TacticalSymbol) {
     console.log('[AppComponent] => symbolChanged()');
-    if (tacticalSymbol) {
+    if (symbol) {
       this.wwd.layers
         .filter(layer => layer.displayName === 'Symbols')
         .map(layer => {
-          layer.addRenderable(tacticalSymbol.placemark);
+          this.symbolService.getSymbol(symbol.id, symbol.icon, symbol.position).then(placemark => {
+            layer.addRenderable(placemark);
+          });
         });
     }
   }

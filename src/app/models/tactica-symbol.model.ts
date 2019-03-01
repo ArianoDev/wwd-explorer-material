@@ -6,13 +6,13 @@ import * as WorldWind from '@nasaworldwind/worldwind';
  * @export
  */
 export interface TacticalSymbol {
-    id: string;
+    id: number;
     placemark: WorldWind.Placemark;
-    point: {
+    position: {
         latitude: number,
         longitude: number
     };
-    isMovable: boolean;
+    icon: string;
 }
 
 // Following an extract of possible model interface
