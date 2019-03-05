@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "server": "node src/server/airpicture-reader.js",
+    "flight-radar24": "node flight-radar-24-fetcher/airpicture-writer.js"
   },
   "private": true,
   "dependencies": {
@@ -31,10 +33,12 @@
     "ngrx-store-freeze": "^0.2.4",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
-    "zone.js": "~0.8.26",        
+    "zone.js": "~0.8.26",
     "web-animations-js": "2.3.1",
     "milsymbol": "^1.3.3",
-    "@nasaworldwind/worldwind": "^0.9.0"
+    "@nasaworldwind/worldwind": "^0.9.0",
+    "flightradar24-client": "^0.3.0",
+    "rticonnextdds-connector": "^0.3.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.13.0",

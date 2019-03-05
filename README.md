@@ -30,3 +30,12 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
+## Run Flight-Radar24 fetcher library
+
+Run `npm run flight-radar24` to execute the library which fetch the flight from FlightRadar24 server and publish via DDS the AirPicture data
+
+## Run Server component
+
+Run `npm run server` to run the server component which retrieves from DDS the AirPicture data
+
+

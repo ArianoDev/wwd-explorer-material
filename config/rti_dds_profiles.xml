@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+
+<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/5.1.0/rti_dds_profiles.xsd" version="5.1.0">
+
+    <!-- Qos Library -->
+	<qos_library name="QosLibrary">
+		<qos_profile name="DefaultProfile" 
+					 base_name="BuiltinQosLibExp::Generic.StrictReliable"
+					 is_default_qos="true">
+			<participant_qos>
+				<transport_builtin>
+					<mask>UDPV4 | SHMEM</mask>
+				</transport_builtin>
+
+				<!-- Turn on monitoring -->
+				<!-- Begin Monitoring
+				<property>
+					<value>
+						<element>
+							<name>rti.monitor.library</name>
+							<value>rtimonitoring</value>
+						</element>
+						<element>
+							<name>rti.monitor.create_function_ptr</name>
+							<value>$(NDDS_MONITOR)</value>
+						</element>
+					</value>
+				</property>
+				 End Monitoring -->
+			</participant_qos>
+			
+			
+		</qos_profile>
+	</qos_library>
+
+    <!-- types -->
+    <types>
+			<struct name="AirTrack"  extensibility="extensible">
+				<member name="id" stringMaxLength="128" id="0" type="string" key="true"/>
+				<member name="flight" stringMaxLength="128" id="1" type="string" />
+				<member name="callsign" stringMaxLength="128" id="2" type="string" />
+				<member name="latitude" id="3" type="float"/>
+				<member name="longitude" id="4" type="float"/>
+				<member name="altitude" id="5" type="float"/>
+				<member name="bearing" id="6" type="float"/>
+				<member name="speed" id="7" type="float"/>
+				<member name="rateOfClimb" id="8" type="float"/>
+				<member name="model" stringMaxLength="128" id="9" type="string" />
+				<member name="modeSCode" stringMaxLength="128" id="10" type="string" />
+				<member name="timestamp" id="11" type="long"/>
+			</struct>
+
+			<struct name="AirPicture">
+        <member name="tracks" id="12" type="nonBasic" nonBasicTypeName="AirTrack" arrayDimensions="20"/>   
+    	</struct> 
+    </types>
+
+    <!-- Domain Library -->
+    <domain_library name="MyDomainLibrary">
+			<domain name="MyDomain" domain_id="0">
+				<register_type name="AirTrack" type_ref="AirTrack" />
+				<topic name="TopicAirTrack" register_type_ref="AirTrack" />
+
+				<register_type name="AirPicture" type_ref="AirPicture" />
+				<topic name="TopicAirPicture" register_type_ref="AirPicture" />
+			</domain>
+    </domain_library>
+
+
+    <!-- Participant library -->
+    <domain_participant_library name="MyParticipantLibrary">
+      <domain_participant name="Zero" domain_ref="MyDomainLibrary::MyDomain">
+
+        <publisher name="MyPublisher">
+				  <data_writer name="AirTrackWriter" topic_ref="TopicAirTrack" />
+        </publisher>
+				
+				<publisher name="AirPicturePublisher">
+				  <data_writer name="AirPictureWriter" topic_ref="TopicAirPicture" />
+        </publisher>
+
+				<subscriber name="MySubscriber">
+          <data_reader name="AirTrackReader" topic_ref="TopicAirTrack" />
+        </subscriber>
+
+        <subscriber name="AirPictureSubscriber">
+          <data_reader name="AirPictureReader" topic_ref="TopicAirPicture" />
+        </subscriber>
+
+		  </domain_participant>
+   </domain_participant_library>
+</dds>
