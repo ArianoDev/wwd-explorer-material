@@ -1,44 +1,45 @@
-<app-toolbar (openMenu)="openSidenav()" (toggleSFA)="sfa.toggle()">
-  WWD Explorer
-</app-toolbar>
+<app-toolbar (openMenu)="sidenav.toggle()" (toggleSFA)="sfa.toggle()"></app-toolbar>
 
 <mat-sidenav-container class="sidenav-container" [autosize]="true">
-  <mat-sidenav #sidenav class="sidenav" [fixedInViewport]="true" [mode]="push" [opened]="showSidenav"
-    [disableClose]="true">
-    <mat-toolbar>
-      Menu <button mat-raised-button (click)="closeSidenav">Close</button>
-    </mat-toolbar>
-    <mat-nav-list>
-      <app-nav-item routerLink="/map" icon="explore" hint="Show Map"> Show Map </app-nav-item>
-      <app-nav-item routerLink="/settings" icon="settings" hint="Open Settings"> Settings </app-nav-item>
-    </mat-nav-list>
-  </mat-sidenav>
 
-  <mat-sidenav #sfa class="sfa" [fixedInViewport]="false" [mode]="'side'" position="end" [opened]="false" [disableClose]="true">
+  <mat-sidenav #sidenav class="sidenav" [fixedInViewport]="false" [mode]="'side'" [opened]="false"
+    [disableClose]="true">
     <mat-toolbar>Settings</mat-toolbar>
     <mat-accordion>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title> Layers </mat-panel-title>
-            <mat-panel-description></mat-panel-description>
-          </mat-expansion-panel-header>
-          <!-- Accordion item content -->
-          <app-layer></app-layer>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title> Projections </mat-panel-title>
-            <mat-panel-description></mat-panel-description>
-          </mat-expansion-panel-header>
-          <!-- Accordion item content -->          
-          <app-projection></app-projection>
-        </mat-expansion-panel>
-      </mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Layers </mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        </mat-expansion-panel-header>
+        <!-- Accordion item content -->
+        <app-layer></app-layer>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Projections </mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        </mat-expansion-panel-header>
+        <!-- Accordion item content -->
+        <app-projection></app-projection>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-sidenav>
+
+  <mat-sidenav #sfa class="sidenav" position="end" [fixedInViewport]="false" [mode]="'side'" [opened]="false"
+    [disableClose]="true">
+    <mat-toolbar>SFA</mat-toolbar>
+
+    <!-- Threat List -->
+    <app-threat-list></app-threat-list>
+
+    <!-- Engagement List -->
+    <app-engagement-list></app-engagement-list>
+
   </mat-sidenav>
 
   <mat-sidenav-content class="app-content">
     <!-- Here the content -->
-    <ng-content></ng-content>    
+    <ng-content></ng-content>
   </mat-sidenav-content>
 
 </mat-sidenav-container>

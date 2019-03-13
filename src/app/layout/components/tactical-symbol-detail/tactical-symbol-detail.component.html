@@ -1,17 +1,43 @@
-<div class="modal-content">  
-  <div mat-dialog-content>
+<div class="modal-content symbol-card">
+  <div mat-dialog-header>
     <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Symbol - {{symbol.id}}</mat-card-title>
-    </mat-card-header>      
-    <mat-card-content>
-      <p class="card-text">Latitude: {{symbol.position.latitude}}</p>
-      <p class="card-text">Latitude: {{symbol.position.longitude}}</p>
+      <mat-card-title class="symbol-id">Symbol - {{symbol.id}}</mat-card-title>
+      <mat-card-subtitle>{{symbol.type}}</mat-card-subtitle>
+      <div mat-card-avatar>
+        <app-svg-element [content]="icon"></app-svg-element>
+      </div>
+    </mat-card-header>
+  </div>
+  <mat-divider></mat-divider>
+  <br>
+  <div mat-dialog-content>
+    <mat-card-content class="card-container" >
+      <mat-form-field>
+        <mat-select placeholder="Category" [(ngModel)]="symbol.category">
+          <mat-option *ngFor="let item of categories" [value]="item.value">
+            {{item.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="card-container" >
+        <mat-select placeholder="Operational Capability" [(ngModel)]="symbol.opCapability">
+          <mat-option *ngFor="let item of capabilities" [value]="item.value">
+            {{item.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="card-container" appearance="legacy">
+        <mat-label>Position</mat-label>
+        <input matInput value="{{formatter.formatDMSLatitude(symbol.position.latitude, 0)}}  {{formatter.formatDMSLongitude(symbol.position.longitude, 0)}}">
+        <mat-hint>Latitude Longitude</mat-hint>
+      </mat-form-field>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-      <button mat-button mat-dialog-close (click)="handleClose()">Close</button>
-    </mat-card-actions>    
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button>LIKE</button>
+    <button mat-button>SHARE</button>
+    <button mat-button mat-dialog-close (click)="handleClose()">Close</button>
   </div>
 </div>

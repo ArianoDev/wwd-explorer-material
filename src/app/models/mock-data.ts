@@ -1,6 +1,7 @@
 import * as WorldWind from '@nasaworldwind/worldwind';
 import { Layer } from './layer.model';
 import { Projection } from './projection.model';
+import { ThreatListElement } from './threat-list-element';
 
 
 /**
@@ -40,3 +41,11 @@ export const PROJECTION: Projection[] = [
     { id: 'North Gnomonic', is2D: true, source: new WorldWind.ProjectionGnomonic('North') },
     { id: 'South Gnomonic', is2D: true, source: new WorldWind.ProjectionGnomonic('South') },
 ];
+
+export const THREAT_LIST: ThreatListElement[] = [
+    { target: '1', speed: 100, class: 2 },
+    { target: '2', speed: 400, class: 1 },
+    { target: '3', speed: 694, class: 5 },
+    { target: '4', speed: 901, class: 4 }
+];
+

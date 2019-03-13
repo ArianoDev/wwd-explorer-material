@@ -5,6 +5,9 @@ import { Symbol } from 'milsymbol';
 import { Store } from '@ngrx/store';
 import * as SymbolActions from '../actions/symbol.actions';
 import * as fromRoot from '../../reducers/index';
+import { Category } from 'src/app/models/enum/Category';
+import { OpCapability } from 'src/app/models/enum/op-capapability';
+import { UnitType } from 'src/app/models/enum/unit-type';
 
 @Component({
   selector: 'app-tactical-symbol',
@@ -16,25 +19,10 @@ export class TacticalSymbolComponent implements OnInit {
   @Output() symbolChanged = new EventEmitter<any>();
 
   symbols = [
-    /*'SFG*UCDSS-*****',
-    'SNG*UCDSS-*****',
-    'SHG*UCDSS-*****',
-    'SUG*UCDSV-*****',
-    'SFG*UCDSV-*****',
-    'SNG*UCDSV-*****',
-    'SHG*UCDSV-*****',
-    'SUG*UCDM--*****',*/
-    'SFG*UCDM--*****',
-    /*'SNG*UCDM--*****',*/
-    'SHG*UCDM--*****',
-    'SUG*UCDML-*****',
-    /*'SFG*UCDML-*****',
-    'SNG*UCDML-*****',
-    'SHG*UCDML-*****',
-    'SUG*UCDMLA*****',
-    'SFG*UCDMLA*****',
-    'SNG*UCDMLA*****',
-    'SHG*UCDMLA*****'*/
+    'SFGPUCDS---F',
+    'SFGPUCDS---E',
+    'SFGPUCDG---E',
+    'SFGPUCDM---E'
   ];
   currentSymbol: string;
   symbolIcons = [];
@@ -61,7 +49,10 @@ export class TacticalSymbolComponent implements OnInit {
         id: Math.floor(Math.random() * 1000),
         placemark: null,
         position: point,
-        icon: this.currentSymbol
+        icon: this.currentSymbol,
+        category: Category.F,
+        opCapability: OpCapability.C,
+        type: UnitType.S
       };
       this.storage.push(symbol);
       console.log('Dispatching event: Add Symbol');

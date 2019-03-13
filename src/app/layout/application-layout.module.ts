@@ -10,6 +10,10 @@ import { MaterialModule } from '../material/material.module';
 import { NavItemComponent } from './components/sidenav/nav-item.component';
 import { MapModule } from '../map/map.module';
 import { TacticalSymbolDetailComponent } from './components/tactical-symbol-detail/tactical-symbol-detail.component';
+import { FormsModule } from '@angular/forms';
+import { MatTabsModule } from '@angular/material';
+import { ThreatListComponent } from './components/threat-list/threat-list.component';
+import { EngagementListComponent } from './components/engagement-list/engagement-list.component';
 
 
 export const COMPONENTS = [
@@ -18,7 +22,9 @@ export const COMPONENTS = [
   ToolbarComponent,
   NavItemComponent,
   DashboardComponent,
-  TacticalSymbolDetailComponent
+  TacticalSymbolDetailComponent,
+  ThreatListComponent,
+  EngagementListComponent
 ];
 
 @NgModule({
@@ -26,7 +32,9 @@ export const COMPONENTS = [
      CommonModule,
      RouterModule,
      MaterialModule,
-     MapModule
+     MapModule,
+     FormsModule,
+     MatTabsModule
     ],
   declarations: COMPONENTS,
   exports: COMPONENTS,

@@ -1,4 +1,7 @@
 import * as WorldWind from '@nasaworldwind/worldwind';
+import { OpCapability } from './enum/op-capapability';
+import { Category } from './enum/category';
+import { UnitType } from './enum/unit-type';
 
 /**
  *
@@ -13,6 +16,9 @@ export interface TacticalSymbol {
         longitude: number
     };
     icon: string;
+    category: Category;
+    opCapability: OpCapability;
+    type: UnitType;
 }
 
 // Following an extract of possible model interface

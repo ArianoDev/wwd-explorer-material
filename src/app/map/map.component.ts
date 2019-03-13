@@ -161,7 +161,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       this.wwd.layers
         .filter(layer => layer.displayName === 'Symbols')
         .map(layer => {
-          this.symbolService.getSymbol(symbol.id, symbol.icon, symbol.position).then(placemark => {
+          this.symbolService.getPlacemark(symbol.id, symbol.icon, symbol.position).then(placemark => {
             layer.addRenderable(placemark);
           });
         });

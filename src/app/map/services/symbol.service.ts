@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as WorldWind from '@nasaworldwind/worldwind';
 import { Symbol } from 'milsymbol';
+import { TacticalSymbol } from 'src/app/models/tactica-symbol.model';
+import { UnitType } from 'src/app/models/enum/unit-type';
 
 
 
@@ -9,8 +11,9 @@ import { Symbol } from 'milsymbol';
 })
 export class SymbolService {
 
-  getSymbol(id: number, icon: string, position: any): Promise<WorldWind.Placemark[]> {
+  getPlacemark(id: number, icon: string, position: any): Promise<WorldWind.Placemark[]> {
     const attributes = new WorldWind.PlacemarkAttributes(null);
+
     attributes.imageSource = new WorldWind.ImageSource(new Symbol(icon).asCanvas());
     // Set up the common placemark attributes.
     attributes.imageOffset = new WorldWind.Offset(WorldWind.OFFSET_FRACTION, 0.3, WorldWind.OFFSET_FRACTION, 0.0);
@@ -33,5 +36,19 @@ export class SymbolService {
     placemark.showContextMenu = () => { console.log('QUI CI POSSO FARE QUALCOSA!!'); };
 
     return Promise.resolve(placemark);
+  }
+
+  getSymbolIcon(symbol: TacticalSymbol): string {
+    let icon = 'S' + symbol.category + 'G' + symbol.opCapability;
+    if (symbol.type === UnitType.S) {
+      icon += 'UCDS---F';
+    } else if (symbol.type === UnitType.E) {
+      icon += 'UCDS---E';
+    } else if (symbol.type === UnitType.G) {
+      icon += 'UCDG---E';
+    } else {
+      icon += 'UCDM---E';
+    }
+    return icon;
   }
 }

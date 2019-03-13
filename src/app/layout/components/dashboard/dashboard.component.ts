@@ -7,6 +7,8 @@ import * as LayoutActions from '../../actions/layout.actions';
 import * as fromRoot from '../../../reducers/index';
 import { TacticalSymbolDetailComponent } from '../tactical-symbol-detail/tactical-symbol-detail.component';
 import { Overlay } from '@angular/cdk/overlay';
+import { THREAT_LIST } from 'src/app/models/mock-data';
+import { ThreatListElement } from 'src/app/models/threat-list-element';
 
 
 @Component({
@@ -18,7 +20,6 @@ import { Overlay } from '@angular/cdk/overlay';
 export class DashboardComponent {
 
   showSidenav = false;
-  showSfa$: Observable<boolean>;
 
   constructor(public dialog: MatDialog, private overlay: Overlay, private store: Store<fromRoot.State>) {
     /**
@@ -33,12 +34,11 @@ export class DashboardComponent {
       this.openDialog(symbol);
     });
 
-    // this.showSfa$ = this.store.pipe(select(fromRoot.getShowSFA));
   }
 
   openSidenav() {
     console.log('Dispatching event: OpenSidenav');
-    this.store.dispatch(new LayoutActions.OpenSidenav());
+    // this.store.dispatch(new LayoutActions.OpenSidenav());
   }
 
   /**
@@ -57,8 +57,8 @@ export class DashboardComponent {
       const dialogConfig = new MatDialogConfig();
       dialogConfig.hasBackdrop = false;
       dialogConfig.position = {
-        top: '64px',
-        right: '0'
+        top: '70px',
+        right: '8px'
       };
       dialogConfig.scrollStrategy = this.overlay.scrollStrategies.noop();
       dialogConfig.data = symbol;
