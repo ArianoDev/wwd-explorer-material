@@ -73,3 +73,4 @@ export const getShowSidenav = createSelector(getLayoutState, fromLayout.getShowS
 export const getProjection = createSelector(getProjectionState, fromMap.getProjection);
 export const getSymbolLoaded = createSelector(getSymbolState, fromMap.getSymbolLoaded);
 export const getEditingSymbol = createSelector(getSymbolState, fromMap.getSymbolEditing);
+export const getSymbolChanged = createSelector(getSymbolState, fromMap.getSymbolChanged);
