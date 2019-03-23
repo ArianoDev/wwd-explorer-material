@@ -4,7 +4,7 @@ import { TacticalSymbol } from 'src/app/models/tactica-symbol.model';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../reducers/index';
 import * as SymbolActions from '../../../map/actions/symbol.actions';
-import { Category } from 'src/app/models/enum/Category';
+import { Category } from 'src/app/models/enum/category';
 import { OpCapability } from 'src/app/models/enum/op-capapability';
 import { Symbol } from 'milsymbol';
 import { Formatter } from 'src/app/map/services/formatter';

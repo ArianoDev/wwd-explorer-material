@@ -5,7 +5,7 @@ import { Symbol } from 'milsymbol';
 import { Store } from '@ngrx/store';
 import * as SymbolActions from '../actions/symbol.actions';
 import * as fromRoot from '../../reducers/index';
-import { Category } from 'src/app/models/enum/Category';
+import { Category } from 'src/app/models/enum/category';
 import { OpCapability } from 'src/app/models/enum/op-capapability';
 import { UnitType } from 'src/app/models/enum/unit-type';
 

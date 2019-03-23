@@ -49,31 +49,11 @@ export class MapComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     console.log('[AppComponent] => ngOnInit()');
 
+    WorldWind.configuration.baseUrl = '';
   }
 
   ngAfterViewInit() {
     console.log('[AppComponent] => ngAfterViewInit()');
-    this.layerService.getLayers()
-      .then(layers => {
-        layers.forEach(layer => {
-          if (layer.collada) {
-            // Create a Collada loader and direct it to the desired directory and .dae file.
-            const colladaLoader = layer.collada.loader;
-            colladaLoader.init(layer.collada.init);
-            colladaLoader.load(layer.collada.load.name, (scene) => {
-              layer.collada.load.callback(scene);
-              // Add the Collada model to the renderable layer within a callback.
-              layer.source.addRenderable(scene);
-            });
-          }
-          // add Layer to WWD
-          this.wwd.addLayer(layer.source);
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-
 
     // Initialize WorldWind object
     this.wwd = new WorldWind.WorldWindow('scene');
@@ -123,6 +103,27 @@ export class MapComponent implements OnInit, AfterViewInit {
     // Listen for right clicks to open menu
     this.wwd.addEventListener('contextmenu', event => {
       this.eventListener(event);
+    });
+
+    this.layerService.getLayers()
+    .then(layers => {
+      layers.forEach(layer => {
+        if (layer.collada) {
+          // Create a Collada loader and direct it to the desired directory and .dae file.
+          const colladaLoader = layer.collada.loader;
+          colladaLoader.init(layer.collada.init);
+          colladaLoader.load(layer.collada.load.name, (scene) => {
+            layer.collada.load.callback(scene);
+            // Add the Collada model to the renderable layer within a callback.
+            layer.source.addRenderable(scene);
+          });
+        }
+        // add Layer to WWD
+        this.wwd.addLayer(layer.source);
+      });
+    })
+    .catch(err => {
+      console.log(err);
     });
 
     this.wwd.redraw();
