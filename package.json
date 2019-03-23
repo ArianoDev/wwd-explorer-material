@@ -40,7 +40,8 @@
     "milsymbol": "^1.3.3",
     "@nasaworldwind/worldwind": "^0.9.0",
     "flightradar24-client": "^0.3.0",
-    "rticonnextdds-connector": "^0.3.3"
+    "rticonnextdds-connector": "^0.3.3",
+    "@types/electron": "^1.6.10"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.13.0",

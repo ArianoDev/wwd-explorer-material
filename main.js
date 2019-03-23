@@ -1,6 +1,7 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const url = require("url");
+const { ipcMain } = require('electron')
 
 let win;
 
@@ -17,8 +18,8 @@ function createWindow() {
   );
 
   // The following is optional and will open the DevTools:
-  // win.webContents.openDevTools()
-
+  win.webContents.openDevTools(); 
+    
   win.on("closed", () => {
     win = null;
   });
@@ -38,4 +39,9 @@ app.on("activate", () => {
   if (win === null) {
     createWindow();
   }
+});
+
+
+ipcMain.on('ping', (event, arg) => {    
+  event.sender.send('pong');
 });
