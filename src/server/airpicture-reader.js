@@ -1,19 +1,22 @@
-var sleep = require('sleep');
-var rti   = require('rticonnextdds-connector');
+var rti = require('rticonnextdds-connector');
 
-var connector = new rti.Connector("MyParticipantLibrary::Zero",__dirname + "/../../config/rti_dds_profiles.xml");
+var connector = new rti.Connector("MyParticipantLibrary::Zero", __dirname + "/../config/rti_dds_profiles.xml");
 var input = connector.getInput("AirPictureSubscriber::AirPictureReader");
 
-connector.on('on_data_available',
-   function() {
-     input.take();
-     for (i=1; i <= input.samples.getLength(); i++) {
-         if (input.infos.isValid(i)) {
-             console.log('Data Arrived');
-             console.log(JSON.stringify(input.samples.getJSON(i)) + '\n');
-         }
-     }
-
-});
-
-console.log("Waiting for data");
+exports.startReader = function (callback) {
+    console.log("Waiting for data");
+    connector.on('on_data_available', function () {
+        input.take();
+        for (i = 1; i <= input.samples.getLength(); i++) {
+            if (input.infos.isValid(i)) {
+                console.log('Data Arrived: ', input.samples);
+                
+                var data = input.samples.getJSON(i);
+                console.log('[SERVER] Data Arrived - size = ' + data.tracks.length);
+                console.log('[SERVER] Data: ', data);
+                console.log('[SERVER] Invoking callback');
+                callback();
+            }
+        }
+    });
+};

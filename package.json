@@ -9,7 +9,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "electron": "ng build --base-href ./ && electron .",
+    "electron-old": "ng build --base-href ./ && electron .",
+    "build-electron": "ng build --base-href ./ && cp src/server/* dist",
+    "electron": "npm run build-electron && electron ./dist/app.js",
     "server": "node src/server/airpicture-reader.js",
     "flight-radar24": "node flight-radar-24-fetcher/airpicture-writer.js"
   },
@@ -53,6 +55,7 @@
     "@types/node": "~8.9.4",
     "codelyzer": "~4.5.0",
     "electron": "^4.1.0",
+    "electron-rebuild": "^1.8.4",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.0.0",

@@ -1,4 +1,3 @@
-var sleep = require('sleep');
 var rti = require('rticonnextdds-connector');
 var radar = require('flightradar24-client/lib/radar');
 

@@ -14,12 +14,12 @@ export class AppComponent {
 
   opened: boolean;
 
-  constructor(private readonly _ipc: IpcService) {
-    this._ipc.on('pong', (event: Electron.IpcMessageEvent) => {
-      console.log('NG-IPC: (PONG) - ', event);
+  constructor(private readonly ipc: IpcService) {
+    this.ipc.on('pong', (event: Electron.IpcMessageEvent, args) => {
+      console.log('NG-IPC: (PONG) - ', args);
     });
     console.log('NG-IPC: (PING)');
-    this._ipc.send('ping');
+    this.ipc.send('ping');
   }
 
 }

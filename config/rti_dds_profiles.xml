@@ -37,22 +37,22 @@
     <!-- types -->
     <types>
 			<struct name="AirTrack"  extensibility="extensible">
-				<member name="id" stringMaxLength="128" id="0" type="string" key="true"/>
+			<member name="id" stringMaxLength="128" id="0" type="string" key="true"/>
 				<member name="flight" stringMaxLength="128" id="1" type="string" />
 				<member name="callsign" stringMaxLength="128" id="2" type="string" />
-				<member name="latitude" id="3" type="float"/>
-				<member name="longitude" id="4" type="float"/>
-				<member name="altitude" id="5" type="float"/>
-				<member name="bearing" id="6" type="float"/>
-				<member name="speed" id="7" type="float"/>
-				<member name="rateOfClimb" id="8" type="float"/>
+				<member name="latitude" id="3" stringMaxLength="128"  type="string"/>
+				<member name="longitude" id="4" stringMaxLength="128"  type="string"/>
+				<member name="altitude" id="5" stringMaxLength="128"  type="string"/>
+				<member name="bearing" id="6" stringMaxLength="128"  type="string"/>
+				<member name="speed" id="7" stringMaxLength="128"  type="string"/>
+				<member name="rateOfClimb" id="8" stringMaxLength="128"  type="string"/>
 				<member name="model" stringMaxLength="128" id="9" type="string" />
 				<member name="modeSCode" stringMaxLength="128" id="10" type="string" />
-				<member name="timestamp" id="11" type="long"/>
+				<member name="timestamp" id="11" stringMaxLength="128" type="string"/>
 			</struct>
 
 			<struct name="AirPicture">
-        <member name="tracks" id="12" type="nonBasic" nonBasicTypeName="AirTrack" arrayDimensions="20"/>   
+        <member name="tracks" id="12" type="nonBasic" nonBasicTypeName="AirTrack" arrayDimensions="9"/>   
     	</struct> 
     </types>
 

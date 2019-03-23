@@ -2,16 +2,17 @@ const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const url = require("url");
 const { ipcMain } = require('electron');
+const reader = require('./airpicture-reader.js');
 
 let win;
 
 function createWindow() {
-  win = new BrowserWindow({ width: 800, height: 600 });
+  win = new BrowserWindow({ width: 1280, height: 720 });
 
   // load the dist folder from Angular
   win.loadURL(
     url.format({
-      pathname: path.join(__dirname, `/dist/index.html`),
+      pathname: path.join(__dirname, `/index.html`),
       protocol: "file:",
       slashes: true
     })
@@ -39,6 +40,11 @@ app.on("activate", () => {
   if (win === null) {
     createWindow();
   }
+});
+
+console.log('[SERVER] Starting DDS Reader');
+reader.startReader(function() {
+  console.log('[SERVER] callback function');
 });
 
 ipcMain.on('ping', (event, arg) => {    
