@@ -35,9 +35,8 @@
       </mat-form-field>
     </mat-card-content>
   </div>
-  <div mat-dialog-actions>
-    <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button>
+  <div mat-dialog-actions>    
+    <button mat-button (click)="applyChanges()">Apply</button>
     <button mat-button mat-dialog-close (click)="handleClose()">Close</button>
   </div>
 </div>

@@ -41,6 +41,10 @@ export class TacticalSymbolDetailComponent implements OnInit {
     }
   }
 
+  applyChanges() {
+    this.store.dispatch(new SymbolActions.SymbolChanged(this.symbol));
+  }
+
   handleClose() {
     this.store.dispatch(new SymbolActions.SymbolEdit(null));
   }

@@ -3,7 +3,8 @@ import { TacticalSymbol } from '../../models/tactica-symbol.model';
 
 export enum SymbolActionTypes {
     SymbolLoaded = '[Symbol] Symbol Created',
-    EditingSymbol = '[Symbol] Editing Symbol'
+    EditingSymbol = '[Symbol] Editing Symbol',
+    SymbolChanged = '[Symbol] Symbol Changed'
 }
 
 export class SymbolCreated implements Action {
@@ -17,4 +18,9 @@ export class SymbolEdit implements Action {
     constructor(public payload: TacticalSymbol) {}
 }
 
-export type SymbolActionsUnion = SymbolCreated | SymbolEdit;
+export class SymbolChanged implements Action {
+    readonly type = SymbolActionTypes.SymbolChanged;
+    constructor(public payload: TacticalSymbol) {}
+}
+
+export type SymbolActionsUnion = SymbolCreated | SymbolEdit | SymbolChanged;

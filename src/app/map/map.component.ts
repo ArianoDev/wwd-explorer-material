@@ -6,6 +6,7 @@ import { InputHandlerService } from './services/input-handler.service';
 import { TacticalSymbol } from '../models/tactica-symbol.model';
 import { LayerService } from './services/layer.service';
 import { SymbolService } from './services/symbol.service';
+import { Symbol } from 'milsymbol';
 
 import * as fromRoot from '../reducers/index';
 
@@ -42,6 +43,10 @@ export class MapComponent implements OnInit, AfterViewInit {
     });
 
     this.store.pipe(select(fromRoot.getSymbolLoaded)).subscribe(symbol => {
+      this.symbolLoaded(symbol);
+    });
+
+    this.store.pipe(select(fromRoot.getSymbolChanged)).subscribe(symbol => {
       this.symbolChanged(symbol);
     });
   }
@@ -156,8 +161,8 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.wwd.redraw();
   }
 
-  symbolChanged(symbol: TacticalSymbol) {
-    console.log('[AppComponent] => symbolChanged()');
+  symbolLoaded(symbol: TacticalSymbol) {
+    console.log('[AppComponent] => symbolLoaded()');
     if (symbol) {
       this.wwd.layers
         .filter(layer => layer.displayName === 'Symbols')
@@ -165,6 +170,20 @@ export class MapComponent implements OnInit, AfterViewInit {
           this.symbolService.getPlacemark(symbol.id, symbol.icon, symbol.position).then(placemark => {
             layer.addRenderable(placemark);
           });
+        });
+    }
+  }
+
+  symbolChanged(symbol: TacticalSymbol) {
+    console.log('[AppComponent] => symbolChanged()');
+    if (symbol) {
+      this.wwd.layers
+        .filter(layer => layer.displayName === 'Symbols')
+        .map(layer => {
+          const icon = this.symbolService.getSymbolIcon(symbol);
+          layer.renderables
+          .filter(renderable => renderable.refId === symbol.id)
+          .map(renderable => renderable.attributes.imageSource = new WorldWind.ImageSource(new Symbol(icon).asCanvas()));
         });
     }
   }
