@@ -9,6 +9,7 @@ import { SymbolService } from './services/symbol.service';
 import { Symbol } from 'milsymbol';
 
 import * as fromRoot from '../reducers/index';
+import { IpcService } from '../services/ipc.service';
 
 @Component({
   selector: 'app-map',
@@ -26,8 +27,10 @@ export class MapComponent implements OnInit, AfterViewInit {
   position: string;
   pickedElem = null;
 
-  // tslint:disable-next-line:max-line-length
-  constructor(private layerService: LayerService, private inputHandlerService: InputHandlerService, private symbolService: SymbolService, private store: Store<fromRoot.State>) {
+
+  constructor(private layerService: LayerService, private inputHandlerService: InputHandlerService,
+    private symbolService: SymbolService, private store: Store<fromRoot.State>, private readonly ipc: IpcService) {
+
     this.roundGlobe = new WorldWind.Globe(new WorldWind.EarthElevationModel());
     this.flatGlobe = new WorldWind.Globe2D();
 
@@ -73,6 +76,88 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.wwd.addLayer(new WorldWind.CoordinatesDisplayLayer(this.wwd));
     this.wwd.addLayer(new WorldWind.ViewControlsLayer(this.wwd));
 
+    this.initWWDListeners();
+
+    this.addLayers();
+
+    this.initAirpictureListener();
+  }
+
+  addLayers() {
+    this.layerService.getLayers()
+      .then(layers => {
+        layers.forEach(layer => {
+          if (layer.collada) {
+            // Create a Collada loader and direct it to the desired directory and .dae file.
+            const colladaLoader = layer.collada.loader;
+            colladaLoader.init(layer.collada.init);
+            colladaLoader.load(layer.collada.load.name, (scene) => {
+              layer.collada.load.callback(scene);
+              // Add the Collada model to the renderable layer within a callback.
+              layer.source.addRenderable(scene);
+            });
+          }
+          // add Layer to WWD
+          this.wwd.addLayer(layer.source);
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      .finally(() => {
+        this.wwd.redraw();
+      });
+  }
+
+  initAirpictureListener() {
+    this.ipc.on('airpicture', (event: Electron.IpcMessageEvent, tracks) => {
+      console.log('NG-IPC: (AIRPICTURE) - ', tracks);
+      if (tracks && tracks.length > 0) {
+        const layer = this.wwd.layers.find(layer => layer.displayName === 'Airtracks');
+        if (layer !== undefined) {
+          layer.renderables = [];
+          this.symbolService.getAirTracks(tracks)
+            .then(airtracks => {
+              console.log('(AIRPICTURE) - Adding Airtracks to wwd: ', airtracks);
+              airtracks.forEach(airtrack => {
+                layer.addRenderable(airtrack);
+              });
+            })
+            .finally(() => {
+              console.log('(AIRPICTURE) - Redraw');
+              this.wwd.redraw();
+            });
+        }
+
+/*
+        const layer = this.wwd.layers.find(layer => layer.displayName === 'Airtracks');
+        tracks.forEach(track => {
+          if (track !== undefined) {
+            const elem = layer.renderables.find(elem => elem.refId === track.id);
+            if (elem) {
+              console.log('(AIRPICTURE) - Updating Airtrack to wwd: ', track.id);
+              elem.position.latitude = track.latitude;
+              elem.position.longitude = track.longitude;
+              elem.position.altitude = track.altitude;
+              this.wwd.redraw();
+            } else {
+              this.symbolService.getAirTrack(track)
+                .then(airtrack => {
+                  console.log('(AIRPICTURE) - Adding Airtrack to wwd: ', airtrack);
+                  layer.addRenderable(airtrack);
+                })
+                .finally(() => {
+                  this.wwd.redraw();
+                });
+            }
+          }
+        });
+*/
+      }
+    });
+  }
+
+  initWWDListeners() {
     // Listen for mouse
     // Listen for mouse down to select an item
     this.wwd.addEventListener('mousedown', event => {
@@ -109,31 +194,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.wwd.addEventListener('contextmenu', event => {
       this.eventListener(event);
     });
-
-    this.layerService.getLayers()
-    .then(layers => {
-      layers.forEach(layer => {
-        if (layer.collada) {
-          // Create a Collada loader and direct it to the desired directory and .dae file.
-          const colladaLoader = layer.collada.loader;
-          colladaLoader.init(layer.collada.init);
-          colladaLoader.load(layer.collada.load.name, (scene) => {
-            layer.collada.load.callback(scene);
-            // Add the Collada model to the renderable layer within a callback.
-            layer.source.addRenderable(scene);
-          });
-        }
-        // add Layer to WWD
-        this.wwd.addLayer(layer.source);
-      });
-    })
-    .catch(err => {
-      console.log(err);
-    });
-
-    this.wwd.redraw();
   }
-
 
   eventListener(event) {
     if (this.inputHandlerService) {
@@ -182,8 +243,8 @@ export class MapComponent implements OnInit, AfterViewInit {
         .map(layer => {
           const icon = this.symbolService.getSymbolIcon(symbol);
           layer.renderables
-          .filter(renderable => renderable.refId === symbol.id)
-          .map(renderable => renderable.attributes.imageSource = new WorldWind.ImageSource(new Symbol(icon).asCanvas()));
+            .filter(renderable => renderable.refId === symbol.id)
+            .map(renderable => renderable.attributes.imageSource = new WorldWind.ImageSource(new Symbol(icon).asCanvas()));
         });
     }
   }

@@ -5,6 +5,7 @@ const { ipcMain } = require('electron');
 const reader = require('./airpicture-reader.js');
 
 let win;
+let linkStatus = false;
 
 function createWindow() {
   win = new BrowserWindow({ width: 1280, height: 720 });
@@ -42,11 +43,30 @@ app.on("activate", () => {
   }
 });
 
-console.log('[SERVER] Starting DDS Reader');
-reader.startReader(function() {
-  console.log('[SERVER] callback function');
-});
 
-ipcMain.on('ping', (event, arg) => {    
-  event.sender.send('pong', 'pong');
+
+ipcMain.on('link', (event, arg) => {
+  try {
+    if(arg !== linkStatus) {
+      if(arg === true) {
+        // active link status
+        console.log('SERVER: (LINK) Starting DDS Reader');
+        reader.startReader(function(tracks) {
+          console.log('SERVER: (LINK) callback function');
+          event.sender.send('airpicture', tracks);
+        });
+      }
+    } else {
+      // stop link
+      
+    }
+    // update link status
+    linkStatus = !linkStatus;
+    // send ack
+    event.sender.send('link', true);
+  } catch(err) {
+    console.log(err);
+    // send ack
+    event.sender.send('link', false);
+  }
 });

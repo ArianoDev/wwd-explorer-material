@@ -26,7 +26,8 @@ export const LAYERS: Layer[] = [
     //         load: { name: 'Ruins_dae.dae', callback: (scene) => { scene.scale = 4000; } }
     //     }
     // },
-    { source: new WorldWind.RenderableLayer('Symbols'), id: 'SYMBOLS', enabled: true }
+    { source: new WorldWind.RenderableLayer('Symbols'), id: 'SYMBOLS', enabled: true },
+    { source: new WorldWind.RenderableLayer('Airtracks'), id: 'AIRTRACKS', enabled: true }
 ];
 
 export const PROJECTION: Projection[] = [

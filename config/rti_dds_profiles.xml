@@ -52,7 +52,7 @@
 			</struct>
 
 			<struct name="AirPicture">
-        <member name="tracks" id="12" type="nonBasic" nonBasicTypeName="AirTrack" arrayDimensions="9"/>   
+        <member name="tracks" id="12" type="nonBasic" nonBasicTypeName="AirTrack" arrayDimensions="5"/>   
     	</struct> 
     </types>
 
