@@ -14,14 +14,15 @@ To get started locally, follow these instructions:
 
 ## Installation and Run
 
-Install dependencies:
+* Install dependencies:
    `$ npm install`
-Rebuild dependencies using Electron:
+* Rebuild dependencies using Electron:
    `$ ./node_modules/.bin/electron-rebuild`
-Build and Run:
+* Build and Run:
    `$ npm run electron`
 
----- 
+----
+
 ## Run Flight-Radar24 fetcher library
 You can run a node library which fetches the flights from [flightradar24.com](https://www.flightradar24.com) and publish via DDS the AirPicture data. Execute the library with:
    `$ npm run flight-radar24`
